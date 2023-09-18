@@ -68,7 +68,7 @@ def translate_img(image_path:pathlib.Path, src:str, tgt:str, tgt_folder:pathlib.
     url = " https://naveropenapi.apigw.ntruss.com/image-to-image/v1/translate"
     print('Posting Start '.ljust(40, '='))
     res = requests.post(url, headers=headers, data=m.to_string())
-    print(res.text)
+    # print(res.text)
     print('Posting Done '.ljust(40, '='))
 
     tgt_path = tgt_folder / pathlib.Path(image_path).name

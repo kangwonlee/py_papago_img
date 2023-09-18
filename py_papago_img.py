@@ -16,12 +16,18 @@ import requests
 
 @functools.lru_cache(maxsize=1)
 def get_application_id() -> str:
-  return os.getenv('NAVER_APPLICATION_ID', getpass.getpass('app id'))
+  id = os.getenv('NAVER_APPLICATION_ID')
+  if id is None:
+     id = getpass.getpass('NAVER_APPLICATION_ID: ')
+  return id
 
 
 @functools.lru_cache(maxsize=1)
 def get_secret() -> str:
-  return os.getenv('NAVER_SECRET', getpass.getpass('secret'))
+  sec = os.getenv('NAVER_SECRET')
+  if sec is None:
+     sec = getpass.getpass('NAVER_SECRET: ')
+  return sec
 
 
 def save_sample_img(write_path:pathlib.Path=pathlib.Path('sample_en.png')):

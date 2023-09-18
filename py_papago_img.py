@@ -14,6 +14,7 @@ import uuid
 
 import requests
 import requests_toolbelt
+import PIL.Image as Image
 
 
 @functools.lru_cache(maxsize=1)
@@ -46,6 +47,16 @@ def save_sample_img(write_path:pathlib.Path=pathlib.Path('sample_en.png')):
 # * en : https://api.ncloud-docs.com/docs/en/ai-naver-imagetoimageapi
 # 
 # 
+
+
+def rezize_img(img_path:pathlib.Path, tgt_size:int=1920):
+    # https://stackoverflow.com/questions/9174338/programmatically-change-image-resolution
+    img = Image.open(img_path)
+    ratio = tgt_size / max(img.size)
+    if ratio < 1.0:
+        ratio *= 0.9 # to be on a safer side
+        img = img.resize((int(img.size[0] * ratio), int(img.size[1] * ratio)), Image.ANTIALIAS)
+        img.save(img_path)
 
 
 def translate_img(image_path:pathlib.Path, src:str, tgt:str, tgt_folder:pathlib.Path, User_client_ID:str, User_client_secret:str):
@@ -111,6 +122,8 @@ def main():
     assert os.getenv('TGT', False), 'TGT is not set'
 
     for input_png in input_folder.glob('*.png'):
+        rezize_img(input_png)
+        
         translate_img(
             input_png, os.environ['SRC'], os.environ['TGT'], target_folder,
             get_application_id(), get_secret()

@@ -22,6 +22,7 @@ jobs:
           run: |
                 pip install gdown
                 gdown --no-check-certificate -O pdf2png --folder $PNG_URL
+                ls -l pdf2png
 
         - name: translate png files
           env:

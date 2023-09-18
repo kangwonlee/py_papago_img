@@ -46,12 +46,12 @@ def save_sample_img(write_path:pathlib.Path=pathlib.Path('sample_en.png')):
 # 
 
 
-def translate_img(image_path:str, src:str, tgt:str, tgt_folder:pathlib.Path, User_client_ID:str, User_client_secret:str):
+def translate_img(image_path:pathlib.Path, src:str, tgt:str, tgt_folder:pathlib.Path, User_client_ID:str, User_client_secret:str):
     print(f'Processing {image_path.name}'.ljust(60, '='))
     data = {
     'source': src,
     'target': tgt,
-    'image': (image_path, open(image_path, 'rb'), 'application/octet-stream', {'Content-Transfer-Encoding': 'binary'})
+    'image': (image_path, image_path.open('rb'), 'application/octet-stream', {'Content-Transfer-Encoding': 'binary'})
     }
     print('Encoding Start '.ljust(40, '='))
     m = requests_toolbelt.MultipartEncoder(data, boundary=uuid.uuid4())
@@ -100,7 +100,7 @@ def main():
 
     for input_png in input_folder.glob('*.png'):
         translate_img(
-            input_png.name, os.environ['SRC'], os.environ['TGT'], target_folder,
+            input_png, os.environ['SRC'], os.environ['TGT'], target_folder,
             get_application_id(), get_secret()
         )
 

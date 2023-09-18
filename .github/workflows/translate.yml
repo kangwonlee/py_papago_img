@@ -20,7 +20,7 @@ jobs:
           env:
             PDF_URL: ${{ secrets.PNG_URL }}
           run: |
-                wget --no-check-certificate $PDF_URL -O pdf2png/
+                wget --no-check-certificate -np -w -l 1 $PDF_URL -O pdf2png/
 
         - name: translate png files
           env:

@@ -6,6 +6,14 @@
 ## Cost
 * Expected 120 KRW per call
 
+## Limits
+| Item | Limit |
+|:---|:---|
+| formats | jpg, jpeg, png, tiff |
+| Maximum image size | 20 MB |
+| Maximum image width | 1960 px |
+| Maximum image height | 1960 px |
+
 ## Reference
 * Papago Image Translator Overview<br>
 English https://guide.ncloud-docs.com/docs/en/papago-image-translation-overview<br>

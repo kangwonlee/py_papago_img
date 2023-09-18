@@ -59,16 +59,16 @@ def rezize_img(img_path:pathlib.Path, tgt_size:int=1920):
         img.save(img_path)
 
 
-def translate_img(image_path:pathlib.Path, src:str, tgt:str, tgt_folder:pathlib.Path, User_client_ID:str, User_client_secret:str):
+def translate_img(image_path:pathlib.Path, src:str, tgt:str, tgt_folder:pathlib.Path, User_client_ID:str, User_client_secret:str, b_verbose:bool=False):
     print(f'Processing {image_path.name}'.ljust(60, '='))
     data = {
     'source': src,
     'target': tgt,
     'image': (image_path.name, image_path.open('rb'), 'application/octet-stream', {'Content-Transfer-Encoding': 'binary'})
     }
-    print('Encoding Start '.ljust(40, '='))
+    if b_verbose : print('Encoding Start '.ljust(40, '='))
     m = requests_toolbelt.MultipartEncoder(data, boundary=uuid.uuid4())
-    print('Encoding Done '.ljust(40, '='))
+    if b_verbose : print('Encoding Done '.ljust(40, '='))
 
     headers = {
     "Content-Type": m.content_type,
@@ -77,10 +77,10 @@ def translate_img(image_path:pathlib.Path, src:str, tgt:str, tgt_folder:pathlib.
     }
 
     url = " https://naveropenapi.apigw.ntruss.com/image-to-image/v1/translate"
-    print('Posting Start '.ljust(40, '='))
+    if b_verbose : print('Posting Start '.ljust(40, '='))
     res = requests.post(url, headers=headers, data=m.to_string())
     # print(res.text)
-    print('Posting Done '.ljust(40, '='))
+    if b_verbose : print('Posting Done '.ljust(40, '='))
 
     tgt_path = tgt_folder / pathlib.Path(image_path).name
 
@@ -100,9 +100,9 @@ def translate_img(image_path:pathlib.Path, src:str, tgt:str, tgt_folder:pathlib.
         imageStr = resObj.get("data").get("renderedImage")
         imgdata = base64.b64decode(imageStr)
 
-        print('Writing Start '.ljust(40, '='))
+        if b_verbose : print('Writing Start '.ljust(40, '='))
         tgt_path.write_bytes(imgdata)
-        print('Writing Done '.ljust(40, '='))
+        if b_verbose : print('Writing Done '.ljust(40, '='))
         print(f'Finished Processing {image_path.name}'.ljust(60, '='))
 
 

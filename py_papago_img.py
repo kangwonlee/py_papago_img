@@ -41,6 +41,7 @@ def save_sample_img(write_path:pathlib.Path=pathlib.Path('sample_en.png')):
 
 
 def translate_img(image_path:str, src:str, tgt:str, tgt_folder:pathlib.Path, User_client_ID:str, User_client_secret:str):
+    print(f'Processing {image_path.name}'.ljust(60, '='))
     data = {
     'source': src,
     'target': tgt,
@@ -73,6 +74,7 @@ def translate_img(image_path:str, src:str, tgt:str, tgt_folder:pathlib.Path, Use
     print('Writing Start '.ljust(40, '='))
     tgt_path.write_bytes(imgdata)
     print('Writing Done '.ljust(40, '='))
+    print(f'Finished Processing {image_path.name}'.ljust(60, '='))
 
 
 def main():

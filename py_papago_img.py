@@ -2,33 +2,23 @@ import base64
 import functools
 import getpass
 import json
+import os
 import pathlib
 import uuid
 
 import requests
 
 
-# %% [markdown]
-# ## Get secret
-
-# %%
 @functools.lru_cache(maxsize=1)
 def get_application_id():
-  return getpass.getpass('app id')
+  return os.getenv('NAVER_APPLICATION_ID', getpass.getpass('app id'))
 
 
-
-# %%
 @functools.lru_cache(maxsize=1)
 def get_secret():
-  return getpass.getpass('secret')
+  return os.getenv('NAVER_SECRET', getpass.getpass('secret'))
 
 
-
-# %% [markdown]
-# ## Save sample image
-
-# %%
 sample_img_path = pathlib.Path('sample_en.png')
 
 

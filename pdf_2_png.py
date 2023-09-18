@@ -6,7 +6,7 @@ References:
   https://pymupdf.readthedocs.io/en/latest/the-basics.html#extract-images-from-a-pdf
 '''
 
-
+import os
 import pathlib
 import sys
 from typing import List
@@ -16,7 +16,7 @@ import fitz
 
 
 def main(argv:List[str], png_folder:pathlib.Path=pathlib.Path('pdf2png')):
-    pdf_path = pathlib.Path(argv[1])
+    pdf_path = pathlib.Path(os.getenv('PDF_PATH', argv[1]))
     assert pdf_path.exists(), f'"{pdf_path}" does not exist'
 
     pdf_stem = pdf_path.stem

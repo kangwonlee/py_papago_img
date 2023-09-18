@@ -16,15 +16,11 @@ jobs:
                 python -m pip install --upgrade pip
                 pip install -r requirements.txt
 
-        - name: download pdf
+        - name: download png
           env:
-            PDF_URL: ${{ secrets.PDF_URL }}
+            PDF_URL: ${{ secrets.PNG_URL }}
           run: |
-                wget --no-check-certificate $PDF_URL -O pdf.pdf
-
-        - name: convert pdf to png
-          run: |
-                python pdf_2_png.py pdf.pdf
+                wget --no-check-certificate $PDF_URL -O pdf2png/
 
         - name: translate png files
           env:

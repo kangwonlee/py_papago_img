@@ -30,5 +30,7 @@ jobs:
           env:
             NAVER_APPLICATION_ID: ${{ secrets.NAVER_APPLICATION_ID }}
             NAVER_SECRET: ${{ secrets.NAVER_SECRET }}
+            SRC: ${{ secrets.SRC }}
+            TGT: ${{ secrets.TGT }}
           run: |
                 python py_papago_img.py

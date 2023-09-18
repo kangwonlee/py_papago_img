@@ -1,3 +1,7 @@
+'''
+Translate image files using Naver's Papago API
+'''
+
 import base64
 import functools
 import getpass
@@ -5,6 +9,7 @@ import json
 import os
 import pathlib
 import uuid
+
 
 import requests
 
@@ -34,7 +39,7 @@ def save_sample_img(write_path:pathlib.Path=pathlib.Path('sample_en.png')):
 # 
 # 
 
-# %%
+
 def translate_img(image_path:str, src:str, tgt:str, tgt_folder:pathlib.Path, User_client_ID:str, User_client_secret:str):
     data = {
     'source': src,
@@ -71,12 +76,25 @@ def translate_img(image_path:str, src:str, tgt:str, tgt_folder:pathlib.Path, Use
 
 
 def main():
+    input_folder = pathlib.Path('pdf2png')
+    assert input_folder.exists(), f"'{input_folder}' does not exist"
+    assert input_folder.is_dir(), f"'{input_folder}' is not a directory"
+    assert input_folder.glob('*.png'), f"'{input_folder}' does not contain any png files"
+
     target_folder = pathlib.Path('target')
     target_folder.mkdir(exist_ok=True)
-    translate_img(
-        sample_img_path.name, 'en', 'ko', target_folder,
-        get_application_id(), get_secret()
-    )
+
+    assert target_folder.exists(), f"'{target_folder}' does not exist"
+    assert target_folder.is_dir(), f"'{target_folder}' is not a directory"
+
+    assert os.getenv('SRC', False), 'SRC is not set'
+    assert os.getenv('TGT', False), 'TGT is not set'
+
+    for input_png in input_folder.glob('*.png'):
+        translate_img(
+            input_png.name, os.environ['SRC'], os.environ['TGT'], target_folder,
+            get_application_id(), get_secret()
+        )
 
 
 if "__main__" == __name__: 

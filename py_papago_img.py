@@ -8,6 +8,7 @@ import getpass
 import json
 import os
 import pathlib
+import shutil
 import uuid
 
 
@@ -70,18 +71,28 @@ def translate_img(image_path:pathlib.Path, src:str, tgt:str, tgt_folder:pathlib.
     print(res.text)
     print('Posting Done '.ljust(40, '='))
 
-    assert not res.json().get('error'), res.json().get('error')
-
-    # renderedImage -> Image output
-    resObj = json.loads(res.text)
-    imageStr = resObj.get("data").get("renderedImage")
-    imgdata = base64.b64decode(imageStr)
-
     tgt_path = tgt_folder / pathlib.Path(image_path).name
-    print('Writing Start '.ljust(40, '='))
-    tgt_path.write_bytes(imgdata)
-    print('Writing Done '.ljust(40, '='))
-    print(f'Finished Processing {image_path.name}'.ljust(60, '='))
+
+    try:
+        assert not res.json().get('error'), res.json().get('error')
+    except AssertionError as e:
+        print(res.json().get('errorMessage'))
+        err = res.json().get('error')
+        if err['errorCode'] == '26007': # No text in image
+            print(f'No text in image: {image_path.name}')
+            shutil.copy(image_path, tgt_path)
+        else:
+            raise e
+    else:
+        # renderedImage -> Image output
+        resObj = json.loads(res.text)
+        imageStr = resObj.get("data").get("renderedImage")
+        imgdata = base64.b64decode(imageStr)
+
+        print('Writing Start '.ljust(40, '='))
+        tgt_path.write_bytes(imgdata)
+        print('Writing Done '.ljust(40, '='))
+        print(f'Finished Processing {image_path.name}'.ljust(60, '='))
 
 
 def main():

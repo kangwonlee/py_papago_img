@@ -55,7 +55,7 @@ def rezize_img(img_path:pathlib.Path, tgt_size:int=1920):
     ratio = tgt_size / max(img.size)
     if ratio < 1.0:
         ratio *= 0.9 # to be on a safer side
-        img = img.resize((int(img.size[0] * ratio), int(img.size[1] * ratio)), Image.ANTIALIAS)
+        img = img.resize((int(img.size[0] * ratio), int(img.size[1] * ratio)), Image.LANCZOS)
         img.save(img_path)
 
 

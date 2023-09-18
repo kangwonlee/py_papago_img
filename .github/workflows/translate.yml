@@ -9,7 +9,7 @@ on :
 jobs:
     pdf-2-png:
         runs-on: ubuntu-latest
-        timeout-minutes: 5
+        timeout-minutes: 50
         steps:
         - name: checkout
           id: checkout

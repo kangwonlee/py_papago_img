@@ -19,22 +19,12 @@ def get_secret() -> str:
   return os.getenv('NAVER_SECRET', getpass.getpass('secret'))
 
 
-sample_img_path = pathlib.Path('sample_en.png')
-
-
-# %%
 def save_sample_img(write_path:pathlib.Path=pathlib.Path('sample_en.png')):
     url = 'https://user-images.githubusercontent.com/17876446/268568007-59e0cd8b-4d66-49d3-897e-74909da3a7c6.png'
     response = requests.get(url)
     img = response.content
 
     write_path.write_bytes(img)
-
-
-
-# %%
-save_sample_img(sample_img_path)
-
 
 
 # %% [markdown]

@@ -21,7 +21,7 @@ jobs:
             PNG_URL: ${{ secrets.PNG_URL }}
           run: |
                 pip install gdown
-                gdown --no-check-certificate --folder $PNG_URL
+                gdown --no-check-certificate -O pdf2png --folder $PNG_URL
 
         - name: translate png files
           env:

@@ -34,3 +34,10 @@ jobs:
             TGT: ${{ secrets.TGT }}
           run: |
                 python py_papago_img.py
+
+        - name: Upload Artifact
+          uses: actions/upload-artifact@v3
+          with:
+            name: target_png
+            path: ./target/
+            retention-days: 5

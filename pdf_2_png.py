@@ -1,9 +1,17 @@
+'''
+Split a PDF file into PNG files.
+
+References:
+  https://wooiljeong.github.io/python/pdf-to-image/
+  https://pymupdf.readthedocs.io/en/latest/the-basics.html#extract-images-from-a-pdf
+'''
+
+
 import pathlib
 import sys
 from typing import List
 
 
-# https://wooiljeong.github.io/python/pdf-to-image/
 import fitz
 
 
@@ -19,3 +27,7 @@ def main(argv:List[str], png_folder:pathlib.Path=pathlib.Path('pdf2png')):
     for i, page in enumerate(doc):
         img = page.get_pixdata()
         img.save(png_folder / pdf_stem+f'_{i:04d}.png')
+
+
+if __name__ == '__main__':
+    main(sys.argv)

@@ -52,7 +52,7 @@ def translate_img(image_path:pathlib.Path, src:str, tgt:str, tgt_folder:pathlib.
     data = {
     'source': src,
     'target': tgt,
-    'image': (image_path, image_path.open('rb'), 'application/octet-stream', {'Content-Transfer-Encoding': 'binary'})
+    'image': (image_path.name, image_path.open('rb'), 'application/octet-stream', {'Content-Transfer-Encoding': 'binary'})
     }
     print('Encoding Start '.ljust(40, '='))
     m = requests_toolbelt.MultipartEncoder(data, boundary=uuid.uuid4())

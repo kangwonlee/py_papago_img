@@ -10,12 +10,12 @@ import requests
 
 
 @functools.lru_cache(maxsize=1)
-def get_application_id():
+def get_application_id() -> str:
   return os.getenv('NAVER_APPLICATION_ID', getpass.getpass('app id'))
 
 
 @functools.lru_cache(maxsize=1)
-def get_secret():
+def get_secret() -> str:
   return os.getenv('NAVER_SECRET', getpass.getpass('secret'))
 
 

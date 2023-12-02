@@ -45,3 +45,6 @@ Korean https://guide.ncloud-docs.com/docs/ko/papago-image-translation-overview
 * Papago Image Translator API Guide<br>
 English https://api.ncloud-docs.com/docs/en/ai-naver-imagetoimageapi<br>
 Korean https://api.ncloud-docs.com/docs/ai-naver-imagetoimageapi
+
+## Copyright
+* Korea Copyright Commision C-2023-046753
